@@ -27,6 +27,7 @@ public class TesteListagemMovimentacao {
 
 		System.out.println(movimentacaoDAO.calcularTotalMovimento(conta, TipoMovimentacao.ENTRADA));
 		System.out.println(movimentacaoDAO.listarMovimentacaoPorTitular("Juliane"));
+		System.out.println(movimentacaoDAO.listarMesesComMovimentacao(conta, TipoMovimentacao.ENTRADA));
 		
 		em.close();
 	}

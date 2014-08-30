@@ -1,8 +1,12 @@
 package cursojpa.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Conta {
@@ -13,6 +17,9 @@ public class Conta {
 	private String titular;
 	private double saldo;
 
+	@OneToMany(mappedBy = "conta")
+	private List<Movimentacao> listaMovimentacao = new ArrayList<Movimentacao>();
+	
 	public long getId() {
 		return id;
 	}
@@ -36,5 +43,19 @@ public class Conta {
 	public void setSaldo(double saldo) {
 		this.saldo = saldo;
 	}
+	
+	public List<Movimentacao> getListaMovimentacao() {
+		return listaMovimentacao;
+	}
 
+	public void setListaMovimentacao(List<Movimentacao> listaMovimentacao) {
+		this.listaMovimentacao = listaMovimentacao;
+	}
+
+	@Override
+	public String toString() {
+		return "\nConta [id=" + id + ", titular=" + titular + ", saldo=" + saldo
+				+ "]";
+	}
+	
 }

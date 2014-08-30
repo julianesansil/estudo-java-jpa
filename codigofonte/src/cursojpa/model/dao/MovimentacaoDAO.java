@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 import cursojpa.model.Conta;
 import cursojpa.model.Movimentacao;
 import cursojpa.model.TipoMovimentacao;
+import cursojpa.model.ValorPorMes;
 
 public class MovimentacaoDAO {
 	private final GenericDAO<Movimentacao> dao;
@@ -81,7 +82,17 @@ public class MovimentacaoDAO {
 		return query.getResultList();
 	}
 	
-//	public ValorPorMes relatorioMensal() {
-//		
-//	}
+	public List<ValorPorMes> listarMesesComMovimentacao(Conta conta, TipoMovimentacao tipo) {
+		String jpql = "SELECT new cursojpa.model.ValorPorMes(MONTH(m.data), SUM(m.valor)) "
+					+ "FROM Movimentacao m "
+					+ "GROUP BY MONTH(m.data), m.conta, m.tipo "
+					+ "HAVING m.conta = :pConta AND m.tipo = :pTipo "
+					+ "ORDER BY SUM(m.valor) DESC";
+		
+		Query query = em.createQuery(jpql);
+		query.setParameter("pConta", conta);
+		query.setParameter("pTipo", tipo);
+		
+		return query.getResultList();
+	}
 }

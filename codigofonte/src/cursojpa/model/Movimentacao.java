@@ -71,7 +71,10 @@ public class Movimentacao {
 	public void setTipo(TipoMovimentacao tipo) {
 		this.tipo = tipo;
 	}
-	
 
-
+	@Override
+	public String toString() {
+		return "\nMovimentacao [id=" + id + ", descricao=" + descricao
+				+ ", valor=" + valor + ", tipo=" + tipo + "]";
+	}
 }
