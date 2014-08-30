@@ -1,8 +1,10 @@
-package cursojpa;
+package cursojpa.model.dao;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
+
+import cursojpa.model.Conta;
 
 public class ContaDAO {
 	private GenericDAO<Conta> dao;

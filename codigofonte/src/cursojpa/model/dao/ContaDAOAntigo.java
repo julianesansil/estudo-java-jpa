@@ -1,9 +1,11 @@
-package cursojpa;
+package cursojpa.model.dao;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+
+import cursojpa.model.Conta;
 
 public class ContaDAOAntigo {
 	private EntityManager em;

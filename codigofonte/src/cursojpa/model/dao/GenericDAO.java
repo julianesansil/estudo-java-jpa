@@ -1,4 +1,4 @@
-package cursojpa;
+package cursojpa.model.dao;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class GenericDAO<T> {
 	}
 	
 	public List<T> listar() {
-		String jpql = "SELECT o FROM" + classe.getName() + "o";
+		String jpql = "SELECT o FROM " + classe.getName() + " o";
 		Query query = em.createQuery(jpql);
 		return query.getResultList();
 	}

@@ -1,4 +1,4 @@
-package cursojpa;
+package cursojpa.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
