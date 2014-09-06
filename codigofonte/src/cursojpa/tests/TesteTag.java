@@ -5,11 +5,9 @@ import java.util.Calendar;
 import javax.persistence.EntityManager;
 
 import cursojpa.JPAUtil;
-import cursojpa.model.Conta;
 import cursojpa.model.Movimentacao;
 import cursojpa.model.Tag;
 import cursojpa.model.TipoMovimentacao;
-import cursojpa.model.dao.ContaDAO;
 import cursojpa.model.dao.MovimentacaoDAO;
 import cursojpa.model.dao.TagDAO;
 
@@ -17,10 +15,6 @@ public class TesteTag {
 	public static void main(String[] args) {
 		EntityManager em = JPAUtil.getEntityManager();
 		em.getTransaction().begin();
-
-		ContaDAO contaDAO = new ContaDAO(em);
-		Conta conta = new Conta();
-		conta.setId(1);
 		
 		MovimentacaoDAO movimentacaoDAO = new MovimentacaoDAO(em);
 		Movimentacao movimentacao = new Movimentacao();
@@ -37,8 +31,15 @@ public class TesteTag {
 		movimentacao.getTags().add(tag);
 		
 		movimentacaoDAO.cadastrar(movimentacao);
+
+		movimentacao = em.find(Movimentacao.class, new Long(18));
+		
+		System.out.println("pesquisa...");
+		for (Tag tagObj : movimentacao.getTags())
+			System.out.println(tagObj.toString());
 		
 		em.getTransaction().commit();
 		em.close();
 	}
+	
 }

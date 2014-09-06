@@ -7,7 +7,6 @@ import javax.persistence.EntityManager;
 import cursojpa.model.Conta;
 import cursojpa.model.Movimentacao;
 import cursojpa.model.TipoMovimentacao;
-import cursojpa.model.dao.ContaDAO;
 import cursojpa.model.dao.MovimentacaoDAO;
 
 public class TesteMovimentacao {
@@ -15,7 +14,6 @@ public class TesteMovimentacao {
 		EntityManager em = JPAUtil.getEntityManager();
 		em.getTransaction().begin();
 		
-		ContaDAO contaDAO = new ContaDAO(em);
 		Conta conta = new Conta();
 		conta.setId(1);
 

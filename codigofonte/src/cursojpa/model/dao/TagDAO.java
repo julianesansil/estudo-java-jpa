@@ -1,5 +1,7 @@
 package cursojpa.model.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
@@ -17,6 +19,14 @@ public class TagDAO {
 
 	public void cadastrar(Tag t) {
 		dao.cadastrar(t);
+	}
+
+	public Tag consultar(long id) {
+		return dao.consultar(id);
+	}
+
+	public List<Tag> listar() {
+		return dao.listar();
 	}
 
 	public Tag cadastrarOuBuscar(String nome) {

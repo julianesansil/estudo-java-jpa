@@ -7,8 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
+@Table(uniqueConstraints = 
+		{@UniqueConstraint(columnNames = "gerente_id")})
 public class Conta {
 
 	@Id
@@ -19,6 +24,9 @@ public class Conta {
 
 	@OneToMany(mappedBy = "conta")
 	private List<Movimentacao> listaMovimentacao = new ArrayList<Movimentacao>();
+	
+	@OneToOne
+	private Gerente gerente;
 	
 	public long getId() {
 		return id;
@@ -50,6 +58,14 @@ public class Conta {
 
 	public void setListaMovimentacao(List<Movimentacao> listaMovimentacao) {
 		this.listaMovimentacao = listaMovimentacao;
+	}
+	
+	public Gerente getGerente() {
+		return gerente;
+	}
+
+	public void setGerente(Gerente gerente) {
+		this.gerente = gerente;
 	}
 
 	@Override

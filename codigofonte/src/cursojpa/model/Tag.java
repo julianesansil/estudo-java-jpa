@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -29,5 +30,11 @@ public class Tag {
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
-	}	
+	}
+	
+	@Override
+	public String toString() {
+		return "Tag [nome=" + nome + "]";
+	}
+
 }
