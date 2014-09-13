@@ -7,12 +7,13 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import net.sf.ehcache.search.expression.Criteria;
 import cursojpa.model.Conta;
 import cursojpa.model.Movimentacao;
+import cursojpa.model.Movimentacao_;
 import cursojpa.model.TipoMovimentacao;
 import cursojpa.model.ValorPorMes;
 
@@ -73,10 +74,35 @@ public class MovimentacaoDAO {
 		
 		Predicate condicao = cb.conjunction();
 		if (conta != null)
-			condicao = cb.and(condicao, cb.equal(root.get("conta"), conta));
+			condicao = cb.and(condicao, cb.equal(root.get(Movimentacao_.conta), conta));
 			
 		if (tipo != null)
-			condicao = cb.and(condicao, cb.equal(root.get("tipo"), tipo));
+			condicao = cb.and(condicao, cb.equal(root.get(Movimentacao_.tipo), tipo));
+		
+		criterio.where(condicao);
+		
+		TypedQuery<Movimentacao> query = em.createQuery(criterio);
+		List<Movimentacao> movimentacoes = query.getResultList();
+		
+		return movimentacoes;
+	}
+	
+	public List<Movimentacao> filtrarPorMesComCriteria(Conta conta, TipoMovimentacao tipo, Integer mes) {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Movimentacao> criterio = cb.createQuery(Movimentacao.class);
+		Root<Movimentacao> root = criterio.from(Movimentacao.class);
+		
+		Predicate condicao = cb.conjunction();
+		if (conta != null)
+			condicao = cb.and(condicao, cb.equal(root.get(Movimentacao_.conta), conta));
+		
+		if (mes != null) {
+			Expression<Integer> expression = cb.function("MONTH", Integer.class, root.get(Movimentacao_.data));
+			condicao = cb.and(condicao, cb.equal(expression, mes));
+		}
+		
+		if (tipo != null)
+			condicao = cb.and(condicao, cb.equal(root.get(Movimentacao_.tipo), tipo));
 		
 		criterio.where(condicao);
 		
